@@ -1,0 +1,32 @@
+{
+  "jobPosts": [
+    {
+      "postId": 1,
+      "postProfile": "Java Developer",
+      "postDesc": "Need to work on ORM, Spring, Web, AOP, REST API",
+      "reqExperience": 3,
+      "postTechStack": ["Java", "Spring", "Hibernate"]
+    },
+    {
+      "postId": 2,
+      "postProfile": "Python Developer",
+      "postDesc": "Building API in Python and ORM",
+      "reqExperience": 2,
+      "postTechStack": ["Python", "Django", "Flask"]
+    },
+    {
+      "postId": 3,
+      "postProfile": "Angular Developer",
+      "postDesc": "Angular Developer with 5 years of experience",
+      "reqExperience": 1,
+      "postTechStack": ["Angular", "Typescript", "Javascript"]
+    },
+    {
+      "postId": 4,
+      "postProfile": "Node Developer",
+      "postDesc": "API Development with Node.js",
+      "reqExperience": 4,
+      "postTechStack": ["Node", "Express", "Javascript"]
+    }
+  ]
+}
