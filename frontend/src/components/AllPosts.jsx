@@ -37,14 +37,22 @@ const AllPost = () => {
 
   const handleEdit = (id) => navigate("/edit", { state: { id } });
 
-  const handleDelete = (id) => {
-    async function deletePost() {
-      await axios.delete(`http://localhost:8080/jobPost/${id}`);
-      console.log("Delete");
-    }
-    deletePost();
-    window.location.reload();
-  };
+  const handleDelete = async (id) => {
+  try {
+    const confirmDelete = window.confirm("Are you sure you want to delete this post?");
+    if (!confirmDelete) return;
+
+    await axios.delete(`http://localhost:8080/jobPost/${id}`);
+    setFilteredPosts(filteredPosts.filter((post) => post.postId !== id));
+    setPosts(posts.filter((post) => post.postId !== id));
+
+    console.log("Post deleted successfully");
+  } catch (error) {
+    console.error("Error deleting post:", error);
+    alert("Failed to delete the post. Please try again.");
+  }
+};
+
 
   return (
     <>
