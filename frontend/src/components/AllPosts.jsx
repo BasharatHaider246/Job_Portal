@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import Search from "./Search";
@@ -11,12 +12,16 @@ const AllPost = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("http://localhost:8080/jobPosts")
-      .then((res) => res.json())
-      .then((data) => {
-        setPosts(data);
-        setFilteredPosts(data);
-      });
+    const fetchPosts = async () => {
+      try {
+        const response = await axios.get("http://localhost:8080/jobPosts");
+        setPosts(response.data);
+        setFilteredPosts(response.data);
+      } catch (error) {
+        console.error("Error fetching posts:", error);
+      }
+    };
+    fetchPosts();
   }, []);
 
   const handleSearch = (term) => {
@@ -33,9 +38,12 @@ const AllPost = () => {
   const handleEdit = (id) => navigate("/edit", { state: { id } });
 
   const handleDelete = (id) => {
-    const updated = filteredPosts.filter((p) => p.postId !== id);
-    setFilteredPosts(updated);
-    setPosts(updated);
+    async function deletePost() {
+      await axios.delete(`http://localhost:8080/jobPost/${id}`);
+      console.log("Delete");
+    }
+    deletePost();
+    window.location.reload();
   };
 
   return (
@@ -46,7 +54,7 @@ const AllPost = () => {
 
       <Grid container spacing={3} sx={{ p: 3 }}>
         {filteredPosts.map((p) => (
-          <Grid key={p.postId} item xs={12} sm={6} md={3} lg={3}>
+          <Grid key={p.postId} item xs={12} sm={6} md={3} lg={3} sx={{pb:4}}>
             <Card
               sx={{
                 p: 2,
